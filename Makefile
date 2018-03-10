@@ -6,7 +6,7 @@
 #    By: agouby <agouby@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/07 09:20:23 by agouby            #+#    #+#              #
-#    Updated: 2018/03/09 21:10:22 by agouby           ###   ########.fr        #
+#    Updated: 2018/03/10 18:04:44 by agouby           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,6 @@ $(NAME_LINK):
 	@rm -f $(NAME_LINK)
 	@ln -s $(NAME) $(NAME_LINK)
 	@printf "\e[96m$(NAME)\e[92m successfully linked as \e[35m$(NAME_LINK)\n\e[0m"
-	@gcc main.c -I./includes libft_malloc.so
 
 $(OBJ_FOLDER):
 	@mkdir -p $(OBJ_FOLDER)
