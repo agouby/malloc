@@ -6,7 +6,7 @@
 #    By: agouby <agouby@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/07 09:20:23 by agouby            #+#    #+#              #
-#    Updated: 2018/03/11 19:44:12 by agouby           ###   ########.fr        #
+#    Updated: 2018/03/11 21:57:52 by agouby           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ all: $(NAME) $(NAME_LINK)
 .SILENT:
 
 $(NAME): $(OBJ_FOLDER) $(OBJS)
-	@gcc -shared -o $(NAME) $(OBJS)
+	@$(CC) -shared -o $(NAME) $(OBJS)
 	@printf "\e[96m$(NAME)\e[92m successfully created\n\e[0m"
 
 $(NAME_LINK):
@@ -58,7 +58,7 @@ $(OBJ_FOLDER):
 	@mkdir -p $(OBJ_FOLDER)
 
 $(OBJ_FOLDER)%.o: $(SRC_FOLDER)%.c $(INCS)
-	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@ -fPIC
+	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJ_FOLDER)
