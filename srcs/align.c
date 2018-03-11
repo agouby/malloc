@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 23:06:49 by agouby            #+#    #+#             */
-/*   Updated: 2018/03/10 17:14:52 by agouby           ###   ########.fr       */
+/*   Updated: 2018/03/11 19:21:26 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int		log_page(size_t n)
 	return (cnt);
 }
 
-size_t			align_page(int format, size_t size)
+size_t			align_page(const int format, const size_t size)
 {
 	int		log;
 	size_t	page_size;
@@ -45,7 +45,7 @@ size_t			align_page(int format, size_t size)
 	return ((((size - 0x1) >> log) << log) + page_size);
 }
 
-size_t			align_16(size_t size)
+size_t			align_16(const size_t size)
 {
 	if (!size)
 		return (16);

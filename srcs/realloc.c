@@ -6,34 +6,11 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:11:32 by agouby            #+#    #+#             */
-/*   Updated: 2018/03/10 18:04:36 by agouby           ###   ########.fr       */
+/*   Updated: 2018/03/11 18:10:48 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
-
-void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	while (n)
-	{
-		if (n > 7)
-		{
-			n -= 8;
-			*((long*)(dst + n)) = *((long*)(src + n));
-		}
-		if (n > 3)
-		{
-			n -= 4;
-			*((int*)(dst + n)) = *((int*)(src + n));
-		}
-		if (n)
-		{
-			n--;
-			*((char*)(dst + n)) = *((char*)(src + n));
-		}
-	}
-	return (dst);
-}
 
 void	*reallocate(t_chunk *chunk, size_t size)
 {
@@ -75,6 +52,16 @@ t_chunk	*reduce_chunk(t_chunk *chunk, size_t size)
 		split_chunk(chunk, old_size - size - CHUNK_SSIZE);
 	}
 	return (chunk->ptr);
+}
+
+void	*reallocf(void *ptr, size_t size)
+{
+	void *new_alloc;
+
+	new_alloc = realloc(ptr, size);
+	if (!new_alloc)
+		free(ptr);
+	return (new_alloc);
 }
 
 void	*realloc(void *ptr, size_t size)

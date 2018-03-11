@@ -1,6 +1,6 @@
 if [ $1 = 1 ]
 then
-	export DYLD_LIBRARY_PATH=/Users/agouby/work/new_malloc/
+	export DYLD_LIBRARY_PATH=/Users/agouby/work/malloc/
 	export DYLD_INSERT_LIBRARIES=libft_malloc.so
 	export DYLD_FORCE_FLAT_NAMESPACE=1
 else

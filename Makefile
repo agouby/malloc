@@ -6,7 +6,7 @@
 #    By: agouby <agouby@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/07 09:20:23 by agouby            #+#    #+#              #
-#    Updated: 2018/03/10 18:04:44 by agouby           ###   ########.fr        #
+#    Updated: 2018/03/11 19:26:20 by agouby           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,12 +23,14 @@ CC		= gcc
 OBJ_FOLDER	= ./builds/
 SRC_FOLDER	= ./srcs/
 SRCS_FILES	= align.c \
-			  malloc.c  \
-			  page.c \
 			  chunk.c \
-			  show_alloc_mem.c \
 			  free.c \
-			  realloc.c
+			  malloc.c \
+			  page.c \
+			  realloc.c \
+			  search.c \
+			  show_alloc_mem.c \
+			  utils.c
 
 SRCS		= $(addprefix $(SRC_FOLDER), $(SRCS_FILES))
 OBJS		= $(addprefix $(OBJ_FOLDER), $(SRCS_FILES:.c=.o))

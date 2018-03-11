@@ -6,52 +6,11 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 06:38:47 by agouby            #+#    #+#             */
-/*   Updated: 2018/03/10 17:20:25 by agouby           ###   ########.fr       */
+/*   Updated: 2018/03/11 19:31:16 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
-
-size_t	ft_strlen(const char *str)
-{
-	int		*addr;
-	size_t	i;
-
-	addr = (int *)str;
-	i = 0;
-	while (1)
-	{
-		if (!(*addr & 0xFF))
-			return (i);
-		if (!(*addr & 0xFF00))
-			return (i + 1);
-		if (!(*addr & 0xFF0000))
-			return (i + 2);
-		if (!(*addr & 0xFF000000))
-			return (i + 3);
-		addr++;
-		i += 4;
-	}
-	return (i);
-}
-
-void	ft_putstr(const char *str)
-{
-	write(1, str, ft_strlen(str));
-}
-
-char	*ft_strcpy(char *dst, char *src)
-{
-	size_t	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	return (dst + i);
-}
 
 void	print_hex(size_t n)
 {
