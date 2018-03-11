@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 13:15:52 by agouby            #+#    #+#             */
-/*   Updated: 2018/03/11 19:25:09 by agouby           ###   ########.fr       */
+/*   Updated: 2018/03/11 19:56:36 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int		get_format(size_t size)
 
 void	*valloc(size_t size)
 {
-	void	*ptr;
-	int		format;
+	void    *ptr;
+	int     format;
 
 	size = align_page(LARGE, size);
 	format = get_format(size);
@@ -48,8 +48,8 @@ void	*calloc(size_t count, size_t size)
 
 void	*malloc(size_t size)
 {
-	void	*ptr;
-	int		format;
+	void    *ptr;
+	int     format;
 
 	size = align_16(size);
 	format = get_format(size);
