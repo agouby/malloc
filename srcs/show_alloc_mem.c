@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 06:38:47 by agouby            #+#    #+#             */
-/*   Updated: 2018/03/11 19:44:37 by agouby           ###   ########.fr       */
+/*   Updated: 2019/02/17 20:20:08 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	print_page_allocs(t_chunk *beg, size_t *size)
 			print_hex((size_t)((void *)beg->ptr + beg->size));
 			ft_putstr(" : ");
 			print_dec(beg->size);
-			ft_putstr(" octets\n");
+			ft_putstr(" octets");
 			*size += beg->size;
 		}
 		else
@@ -73,11 +73,13 @@ void	print_page_allocs(t_chunk *beg, size_t *size)
 			print_hex((size_t)beg->ptr);
 			ft_putstr(" - ");
 			print_hex((size_t)((void *)beg->ptr + beg->size));
-			ft_putstr(" : FREE CHUNK : ");
+			ft_putstr(" : ");
 			print_dec(beg->size);
-			ft_putstr(" octets\n");
+			ft_putstr(" octets ");
+			ft_putstr("FREE");
 		}
 		beg = beg->next;
+		ft_putstr("\n");
 	}
 }
 
@@ -99,11 +101,13 @@ void	show_alloc_mem(void)
 	t_page	*cur_page;
 	size_t	size;
 
+	pthread_mutex_lock(&g_mutex);
 	ft_putstr("\n");
 	size = 0;
 	if (!(cur_page = fetch_first_page(NULL, 0)))
 	{
 		ft_putstr("No allocation found.\n");
+		pthread_mutex_unlock(&g_mutex);
 		return ;
 	}
 	while (cur_page)
@@ -115,4 +119,5 @@ void	show_alloc_mem(void)
 	print_dec(size);
 	ft_putstr(" octets\n");
 	ft_putstr("\n");
+	pthread_mutex_unlock(&g_mutex);
 }

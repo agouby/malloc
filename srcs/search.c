@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 17:49:37 by agouby            #+#    #+#             */
-/*   Updated: 2018/03/11 18:12:28 by agouby           ###   ########.fr       */
+/*   Updated: 2019/02/17 20:06:07 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ t_chunk			*search_ptr(void *ptr, t_page **p)
 	search = NULL;
 	while (*p)
 	{
-		if ((search = search_ptr_in_page(*p, ptr)))
+		if (ptr > (void *)*p && (ptr < ((void *)*p + (*p)->size)))
+		{
+			search = search_ptr_in_page(*p, ptr);
 			break ;
+		}
 		*p = (*p)->next;
 	}
 	return (search);

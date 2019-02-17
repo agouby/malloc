@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 13:25:18 by agouby            #+#    #+#             */
-/*   Updated: 2018/03/11 18:11:00 by agouby           ###   ########.fr       */
+/*   Updated: 2019/02/17 19:52:03 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	*create_page(int format, size_t size)
 	page = fetch_first_page(NULL, 0);
 	prev = NULL;
 	goto_last_page(&prev);
-	if (!(page = mmap(0, page_size, PROTS, FLAGS, -1, 0)))
+	if (!(page = mmap(0, page_size, PROTS, MMAP_FLAGS, -1, 0)))
 		return (NULL);
 	init_page(format, page_size, prev);
 	if (!prev)

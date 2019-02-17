@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 20:11:32 by agouby            #+#    #+#             */
-/*   Updated: 2018/03/11 18:10:48 by agouby           ###   ########.fr       */
+/*   Updated: 2019/02/17 19:50:47 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*extend_chunk(t_chunk *chunk, size_t size)
 			(chunk->size + chunk->next->size + CHUNK_SSIZE < size))
 		return (NULL);
 	full_size = chunk->size + chunk->next->size + CHUNK_SSIZE;
-	chunk->next = chunk->next->next;
+	attach_next(chunk);
 	set_chunk(chunk, size, 0);
 	if (full_size - size > CHUNK_SSIZE)
 		split_chunk(chunk, full_size - size - CHUNK_SSIZE);

@@ -6,11 +6,13 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 13:15:52 by agouby            #+#    #+#             */
-/*   Updated: 2018/03/11 19:56:36 by agouby           ###   ########.fr       */
+/*   Updated: 2019/02/17 19:49:53 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+
+pthread_mutex_t g_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 int		get_format(size_t size)
 {
@@ -26,11 +28,17 @@ void	*valloc(size_t size)
 	void    *ptr;
 	int     format;
 
+	pthread_mutex_lock(&g_mutex);
 	size = align_page(LARGE, size);
 	format = get_format(size);
 	if (!page || format == LARGE)
-		return (create_page(format, size));
+	{
+		void *ret = create_page(format, size);
+		pthread_mutex_unlock(&g_mutex);
+		return (ret);
+	}
 	ptr = search_free_chunk(format, size);
+	pthread_mutex_unlock(&g_mutex);
 	return (ptr);
 }
 
@@ -41,6 +49,10 @@ void	*calloc(size_t count, size_t size)
 
 	full_size = count * size;
 	new_alloc = malloc(full_size);
+	if (!new_alloc)
+	{
+		return (NULL);
+	}
 	if (full_size)
 		ft_bzero(new_alloc, full_size);
 	return (new_alloc);
@@ -51,10 +63,16 @@ void	*malloc(size_t size)
 	void    *ptr;
 	int     format;
 
+	pthread_mutex_lock(&g_mutex);
 	size = align_16(size);
 	format = get_format(size);
 	if (!page || format == LARGE)
-		return (create_page(format, size));
+	{
+		void *ret = create_page(format, size);
+		pthread_mutex_unlock(&g_mutex);
+		return (ret);
+	}
 	ptr = search_free_chunk(format, size);
+	pthread_mutex_unlock(&g_mutex);
 	return (ptr);
 }
