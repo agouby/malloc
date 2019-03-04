@@ -6,7 +6,7 @@
 #    By: agouby <agouby@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/07 09:20:23 by agouby            #+#    #+#              #
-#    Updated: 2019/02/17 20:24:53 by agouby           ###   ########.fr        #
+#    Updated: 2019/03/04 21:12:06 by agouby           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ endif
 NAME		= libft_malloc_$(HOSTTYPE).so
 NAME_LINK	= libft_malloc.so
 
-FLAGS		= -Wall -Werror -Wextra
+FLAGS		= -g -Wall -Werror -Wextra
 CC  		= gcc
 
 OBJ_FOLDER	= ./builds/
@@ -30,10 +30,17 @@ SRCS_FILES	= align.c \
 		  realloc.c \
 		  search.c \
 		  show_alloc_mem.c \
-		  utils.c
+		  memory_dump.c \
+		  utils.c \
+		  size_utils.c \
+		  memory_dump_utils.c \
+		  print_utils.c
 
 SRCS		= $(addprefix $(SRC_FOLDER), $(SRCS_FILES))
 OBJS		= $(addprefix $(OBJ_FOLDER), $(SRCS_FILES:.c=.o))
+
+TOTAL = $(shell echo $(OBJS) | tr ' ' '\n' | wc -l)
+CURRENT = 1
 
 INC_PATH	= ./includes/
 INCLUDES	= -I$(INC_PATH)
@@ -56,7 +63,9 @@ $(OBJ_FOLDER):
 	@mkdir -p $(OBJ_FOLDER)
 
 $(OBJ_FOLDER)%.o: $(SRC_FOLDER)%.c $(INCS)
-	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@ -fPIC
+	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
+	@printf "\e[93m(%02d/%02d) Compiled $@\n\e[0m" $(CURRENT) $(TOTAL)
+	$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
 
 clean:
 	@rm -rf $(OBJ_FOLDER)

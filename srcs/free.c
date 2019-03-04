@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 18:10:07 by agouby            #+#    #+#             */
-/*   Updated: 2019/02/17 20:10:56 by agouby           ###   ########.fr       */
+/*   Updated: 2019/03/04 19:58:05 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		attach_next(t_chunk *chunk)
 {
-	chunk->size = chunk->size + chunk->next->size + CHUNK_SSIZE;
+	chunk->size = chunk->size + chunk->next->size + chunk_ssize();
 	chunk->next = chunk->next->next;
 	if (chunk->next)
 		chunk->next->prev = chunk;

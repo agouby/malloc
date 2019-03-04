@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 17:49:37 by agouby            #+#    #+#             */
-/*   Updated: 2019/02/17 20:06:07 by agouby           ###   ########.fr       */
+/*   Updated: 2019/03/04 19:14:09 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void			*search_free_chunk(int format, size_t size)
 	{
 		old_size = search->size;
 		set_chunk(search, size, 0);
-		if (old_size - search->size > CHUNK_SSIZE)
-			split_chunk(search, old_size - search->size - CHUNK_SSIZE);
+		if (old_size - search->size > chunk_ssize())
+			split_chunk(search, old_size - search->size - chunk_ssize());
 		return (search->ptr);
 	}
 	else

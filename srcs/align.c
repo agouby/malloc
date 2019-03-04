@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 23:06:49 by agouby            #+#    #+#             */
-/*   Updated: 2019/02/16 20:12:07 by agouby           ###   ########.fr       */
+/*   Updated: 2019/02/27 02:51:48 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static int		log_page(size_t n)
 
 size_t			align_page(const int format, const size_t size)
 {
-	int     log;
-	size_t  page_size;
+	int		log;
+	size_t	page_size;
 
 	if (format == TINY)
 		page_size = TINY_FAC * getpagesize();

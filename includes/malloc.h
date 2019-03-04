@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 00:36:43 by agouby            #+#    #+#             */
-/*   Updated: 2019/02/17 20:10:15 by agouby           ###   ########.fr       */
+/*   Updated: 2019/03/04 21:11:43 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,27 @@
 # include "sizes.h"
 # include <pthread.h>
 
-# define PROTS	PROT_READ | PROT_WRITE
-# define MMAP_FLAGS	MAP_PRIVATE | MAP_ANON
-
-# define CHUNK_SSIZE    (align_16(sizeof(t_chunk)))
-# define PAGE_SSIZE     (align_16(sizeof(t_page)))
-
-//# define ft_printf(x, ...) (0)
-
 extern pthread_mutex_t g_mutex;
 
-typedef struct  s_chunk
+typedef struct	s_chunk
 {
-	int             free;
-	size_t          size;
-	void            *ptr;
-	struct s_chunk  *prev;
-	struct s_chunk  *next;
-}               t_chunk;
+	int				free;
+	size_t			size;
+	void			*ptr;
+	struct s_chunk	*prev;
+	struct s_chunk	*next;
+}				t_chunk;
 
-typedef struct  s_page
+typedef struct	s_page
 {
-	int             format;
-	size_t          size;
-	t_chunk         *beg;
-	struct s_page   *prev;
-	struct s_page   *next;
-}               t_page;
+	int				format;
+	size_t			size;
+	t_chunk			*beg;
+	struct s_page	*prev;
+	struct s_page	*next;
+}				t_page;
 
-struct s_page   *page;
+struct s_page	*page;
 
 void			*malloc(size_t size);
 void			free(void *ptr);
@@ -69,6 +61,9 @@ void			connect_chunk(t_chunk *chunk, t_chunk *prev, t_chunk *next);
 void			split_chunk(t_chunk *chunk, size_t size);
 void			attach_next(t_chunk *chunk);
 
+size_t			chunk_ssize(void);
+size_t			page_ssize(void);
+
 void			ft_bzero(void *s, size_t size);
 void			ft_putstr(const char *str);
 
@@ -77,5 +72,18 @@ void			*ft_memcpy(void *dst, const void *src, size_t n);
 void			show_alloc_mem(void);
 void			print_hex(size_t n);
 void			print_dec(size_t n);
+
+void			print_hex_char(unsigned char n);
+int				ft_isprintable(unsigned char c);
+void			print_bytes_ascii(const char *ptr);
+void			print_bytes_hex(const char *ptr);
+int				is_filled_zeros(void *ptr, size_t size);
+void			skip_zeros(void **ptr, size_t *size);
+void			print_hex_char(unsigned char n);
+void			ft_putchar(unsigned char c);
+void			print_hex(size_t n);
+void			print_dec(size_t n);
+
+void			memory_dump();
 
 #endif

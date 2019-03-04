@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 13:25:18 by agouby            #+#    #+#             */
-/*   Updated: 2019/02/17 19:52:03 by agouby           ###   ########.fr       */
+/*   Updated: 2019/03/04 21:02:36 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 t_page	*fetch_first_page(t_page *new_first, int force)
 {
-	static t_page	*first = NULL;
+	static t_page	*g_first = NULL;
 
 	if (new_first || force)
 	{
-		first = new_first;
-		if (first)
-			first->prev = NULL;
+		g_first = new_first;
+		if (g_first)
+			g_first->prev = NULL;
 	}
-	return (first);
+	return (g_first);
 }
 
 void	del_page(t_page *p)
@@ -56,31 +56,32 @@ void	init_page(int format, size_t size, t_page *prev)
 {
 	page->format = format;
 	page->size = size;
-	page->beg = (t_chunk *)((void *)page + PAGE_SSIZE);
+	page->beg = (t_chunk *)((void *)page + page_ssize());
 	page->prev = prev;
 	if (prev)
 		prev->next = page;
 	page->next = NULL;
 }
 
-void	*create_page(int format, size_t size)
+void	*create_page(int format, size_t p_size)
 {
-	size_t	page_size;
+	size_t	size;
 	size_t	new_chunk_size;
 	t_page	*prev;
 
-	page_size = align_page(format, size + PAGE_SSIZE + CHUNK_SSIZE);
+	size = align_page(format, p_size + page_ssize() + chunk_ssize());
 	page = fetch_first_page(NULL, 0);
 	prev = NULL;
 	goto_last_page(&prev);
-	if (!(page = mmap(0, page_size, PROTS, MMAP_FLAGS, -1, 0)))
+	page = mmap(0, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
+	if (!page)
 		return (NULL);
-	init_page(format, page_size, prev);
+	init_page(format, size, prev);
 	if (!prev)
 		fetch_first_page(page, 0);
-	set_chunk(page->beg, size, 0);
+	set_chunk(page->beg, p_size, 0);
 	connect_chunk(page->beg, NULL, NULL);
-	new_chunk_size = page->size - (PAGE_SSIZE + CHUNK_SSIZE * 2 + size);
+	new_chunk_size = page->size - (page_ssize() + chunk_ssize() * 2 + p_size);
 	if (format != LARGE)
 		split_chunk(page->beg, new_chunk_size);
 	return (page->beg->ptr);

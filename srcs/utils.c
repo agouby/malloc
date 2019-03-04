@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 13:39:36 by agouby            #+#    #+#             */
-/*   Updated: 2018/03/11 19:56:47 by agouby           ###   ########.fr       */
+/*   Updated: 2019/03/04 21:15:44 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void			*ft_memcpy(void *dst, const void *src, size_t n)
 
 static size_t	ft_strlen(const char *str)
 {
-	int     *addr;
-	size_t  i;
+	int		*addr;
+	size_t	i;
 
 	addr = (int *)str;
 	i = 0;
@@ -80,7 +80,7 @@ static size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-void			ft_putstr(const char *str)
+void			ft_putstr(const char *s)
 {
-	write(1, str, ft_strlen(str));
+	write(1, s, ft_strlen(s));
 }
