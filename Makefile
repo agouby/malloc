@@ -6,7 +6,7 @@
 #    By: agouby <agouby@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/07 09:20:23 by agouby            #+#    #+#              #
-#    Updated: 2019/03/04 21:12:06 by agouby           ###   ########.fr        #
+#    Updated: 2019/03/05 15:23:06 by agouby           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ endif
 NAME		= libft_malloc_$(HOSTTYPE).so
 NAME_LINK	= libft_malloc.so
 
-FLAGS		= -g -Wall -Werror -Wextra
+FLAGS		= -Wall -Werror -Wextra
 CC  		= gcc
 
 OBJ_FOLDER	= ./builds/

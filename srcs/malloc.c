@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 13:15:52 by agouby            #+#    #+#             */
-/*   Updated: 2019/03/04 20:57:11 by agouby           ###   ########.fr       */
+/*   Updated: 2019/03/05 15:27:17 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*valloc(size_t size)
 	pthread_mutex_lock(&g_mutex);
 	size = align_page(LARGE, size);
 	format = get_format(size);
-	if (!page || format == LARGE)
+	if (!g_page || format == LARGE)
 	{
 		ret = create_page(format, size);
 		pthread_mutex_unlock(&g_mutex);
@@ -66,7 +66,7 @@ void	*malloc(size_t size)
 	pthread_mutex_lock(&g_mutex);
 	size = align_16(size);
 	format = get_format(size);
-	if (!page || format == LARGE)
+	if (!g_page || format == LARGE)
 	{
 		ret = create_page(format, size);
 		pthread_mutex_unlock(&g_mutex);

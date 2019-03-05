@@ -6,7 +6,7 @@
 /*   By: agouby <agouby@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 00:36:43 by agouby            #+#    #+#             */
-/*   Updated: 2019/03/04 21:11:43 by agouby           ###   ########.fr       */
+/*   Updated: 2019/03/05 15:30:19 by agouby           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <sys/mman.h>
 # include <unistd.h>
-# include "sizes.h"
+# include <sizes.h>
 # include <pthread.h>
 
 extern pthread_mutex_t g_mutex;
@@ -38,7 +38,7 @@ typedef struct	s_page
 	struct s_page	*next;
 }				t_page;
 
-struct s_page	*page;
+struct s_page	*g_page;
 
 void			*malloc(size_t size);
 void			free(void *ptr);
